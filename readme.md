@@ -10,6 +10,7 @@
 * 利用mysql主从，实现meta信息的备份，进而实现分布式的查询。
 * 每个节点都可以写入和读取图片，去除中心化。写入图片后，自动通知其他节点同步数据。
 
+[核心算法](https://github.com/hapn/storage/blob/master/api/StorageExport.php)
 
 图片存储原理
 ------------
