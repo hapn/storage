@@ -113,7 +113,7 @@ server {
 ```
 
 ```shell
-git clone https://github.com/comdeng/Storage.git ~/sites/storage
+git clone https://github.com/ihapn/storage.git ~/sites/storage
 cd ~/sites/storage
 mkdir log 
 chmod 777 log
