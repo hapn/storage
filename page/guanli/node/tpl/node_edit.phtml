@@ -1,0 +1,24 @@
+<?php $this->setLayout('_private/tpl/layout.phtml')?>
+<h1>编辑节点<?=$this->node['node_name']?></h1>
+
+<form method="post" action="/guanli/node/_edit">
+	<input type="hidden" name="data[node_id]" value="<?=$this->node['node_id']?>"/>
+    
+    <dl class="dl-horizontal">
+    	<dt>节点名称</dt>
+    	<dd><input type="text" class="form-control" name="data[node_name]" placeholder="节点名称..." value="<?=$this->node['node_name']?>"></dd>
+    	<dt>数据库</dt>
+    	<dd><input type="text" class="form-control" name="data[node_db]" placeholder="数据库..." value="<?=$this->node['node_db']?>"/></dd>
+    	<dt>图片主机</dt>
+    	<dd><input type="text" class="form-control" name="data[image_url]" placeholder="图片主机..." value="<?=$this->node['image_url']?>"/></dd>
+    	<dt>节点网址</dt>
+    	<dd><?=$this->node['node_url']?></dd>
+    	<dt>图片目录</dt>
+    	<dd><?=$this->node['image_dir']?></dd>
+    	<dt></dt>
+    	<dd><button class="btn btn-info " type="submit">更新</button>
+    		<a href="/guanli/node/">返回</a>
+    	</dd>
+    </dl>
+    
+</form>

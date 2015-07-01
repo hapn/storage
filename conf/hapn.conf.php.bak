@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * 
+ * @copyright 		Copyright (C) Jiehun.com.cn 2015 All rights reserved.
+ * @filesource		storage.conf.php
+ * @author			ronnie<dengxiaolong@hunbasha.com>
+ * @since			2015/3/24
+ * @version		    1.0
+ * @desc 			
+ */
+
+Conf::set('hapn.debug', 'manual');
+// Conf::set('hapn.debug', true);
+//记录代码覆盖率日志
+//日志文件位置在tmp/cov下
+Conf::set('hapn.logcov', false);//
+Conf::set('hapn.log.file', 'hapn');
+Conf::set('hapn.log.roll', 2);
+Conf::set('hapn.log.level', 8);
+//Conf::set('hapn.log.request', 'request.log');
+Conf::set('hapn.view', 'PhpView');
+Conf::set('hapn.encodeinput', true);
+
+Conf::set('hapn.error.redirect', array(
+        'hapn.error'           => '!/_private/error',
+        'hapn.u_notfound'      => '!/_private/notfound',
+        'hapn.u_login'         => '/user/login?tpl=cc&tpl_reg=cc&u=[url]',
+        'hapn.u_power'         => '!/_private/power'
+));
+Conf::set('hapn.error.retrycode', '/\.net_/');
+Conf::set('hapn.error.retrymax', 2);
+Conf::set('hapn.error.userreg', '/\.u_/');
+
+//实际单元测试时不应该加载此配置
+//* 
+Conf::set('hapn.filter.init',array('StorageInitFilter'));
+Conf::set('hapn.filter.input',array(/*,'CSRFFilter'*/));
+Conf::set('hapn.filter.clean',array());
+//*/
+
+Conf::set('hapn.encoding','UTF-8');
+
+Conf::set('db.conf',array(
+	'long_query_time'			=> 100,
+    'text_compress_len' 		=> 1,
+	//1是取模分表
+    'splits'                    => array('t_text'=>array('text_id',array(1=>10))),
+    'log_func'                  => 'Logger::trace',
+    'test_mode'                 => 0,
+	'db_pool' 					=> array( 
+		'ip1' => array( 
+			'ip' 	=> '192.168.3.30',
+			'user' 	=> 'HapN',
+			'pass' 	=> 'HapN',
+			'port' 	=> 3309,
+			'charset' => 'utf8'
+		),
+	),
+	'dbs' => array( 
+		'storage' => 'ip1',
+	)
+));
+Conf::set('db.readonly', false);
+
+//默认curl的配置
+Conf::set('curl.options',array(
+	//seconds
+	CURLOPT_TIMEOUT =>5,
+	CURLOPT_CONNECTTIMEOUT=>1,
+));
+
+
+Conf::set('cache', array(
+	'servers'=>array(
+		'192.168.3.52:11211'
+	),
+	'connect_timeout'	=> 0.1, //s
+	'rw_timeout'		=> 50000, //ms
+	'retry'				=> 3, //3次连接重试
+	'zip_threshold'		=> 1024 //>1024byt
+));

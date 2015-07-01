@@ -1,0 +1,55 @@
+<?php $this->setLayout('_private/tpl/layout.phtml')?>
+
+<h1>
+	块列表
+	<small><a href="/guanli/node/">返回</a></small>
+</h1>
+
+<div class="row">
+	<div class="col-md-3">
+		<ul class="list-unstyled" id="nodeList">
+		<?php foreach($this->dirs as $dir):?>
+			<li>
+				<h5>
+					<?php if ($dir['is_primary']):?>
+					<a class="btn btn-success" href="<?=$dir['url']?>" title="主节点"><?=$dir['name']?></a>
+					<?php else:?>
+					<a class="btn btn-default" href="<?=$dir['url']?>" title="复制节点"><?=$dir['name']?></a>
+					<?php endif?>
+				</h5>
+				<ul></ul>
+			</li>
+		<?php endforeach?>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div id="blockList">
+			
+		</div>
+	</div>
+</div>
+<script>
+	var nlist = $('#blockList');
+	$('#nodeList').delegate('h5 > a', 'click', function(){
+		var next = $(this).parent().next('ul');
+		$.ajax({
+			url:this.href,
+			dataType:'json',
+			success: function(ret){
+				next.empty();
+				if (ret.err == 'hapn.ok') {
+					$.each(ret.data.dirs, function(k, v){
+						$('<li><h6><a href="' + v.url + '">' + v.name + '</a></h6></li>').appendTo(next);
+					});
+				}
+			}
+		});
+		return false;
+	}).delegate('h6 > a', 'click', function() {
+		$.get(this.href, function(html){
+			nlist.html(html);
+		});
+		return false;
+	});
+
+</script>

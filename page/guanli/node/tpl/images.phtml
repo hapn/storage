@@ -1,0 +1,39 @@
+<?php $this->setLayout('_private/tpl/layout.phtml')?>
+
+	<link rel="stylesheet" href="/css/uikit.css"/>
+	<link rel="stylesheet" href="/css/uikit/docs.css"/>
+	<link rel="stylesheet" href="/css/uikit/lightbox.css"/>
+	<script src="/js/uikit.js"></script>
+	<script src="/js/uikit/modal.js"></script>
+	<script src="/js/uikit/lightbox.js"></script>
+	
+	<h1>图片列表
+		<small><a href="/guanli/node/">返回</a></small>
+	</h1>
+	<nav>
+		<div class="nav navbar-nav navbar-left">
+			<div class="dropdown">
+			  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+			    <?=$this->table['name']?>
+			    <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			    <?php foreach($this->tables as $tb):?>
+			    <li role="presentation"><a role="menuitem" tabindex="-1" href="/guanli/node/table/<?=$this->node['node_id']?>/?table_id=<?=$tb['id']?>"><?=$tb['name']?></a></li>
+			    <?php endforeach?>
+			  </ul>
+			</div>
+		</div>
+		<div class="nav navbar-nav navbar-right">
+			<a href="/image/upload/" class="btn btn-warning btn-lg" target="_blank">上传</a>
+		</div>
+	</nav>
+	
+	<?=$this->partial('/guanli/node/image/'.$this->table_id, array(
+		'max_id' => $this->max_id, 
+	))?>
+		
+	
+	
+	
+	

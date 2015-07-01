@@ -1,0 +1,16 @@
+<h3><?=$this->path?></h3>
+<hr/>
+<ul class="row list-unstyled">
+	<?php foreach($this->blocks as $block):?>
+	<li class="col-md-2">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<label><?=$block['name']?></label>
+				<p>
+					<?=$block['size']/1024/1024?>M
+				</p>
+			</div>
+		</div>
+	</li>
+	<?php endforeach?>
+</ul>

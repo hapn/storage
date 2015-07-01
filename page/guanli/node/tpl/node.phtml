@@ -1,0 +1,78 @@
+<?php $this->setLayout('_private/tpl/layout.phtml')?>
+<h1>节点列表</h1>
+
+<div class="text-right">
+<a href="/guanli/node/add/" class="btn btn-info btn-lg"> 添加节点 </a>
+</div>
+
+<?php  if($this->nodes):?>
+<table class="table table-bordered table-striped">
+	<thead>
+		<th>ID</th>
+		<th>名称</th>
+		<th>主机</th>
+		<th>最大块ID</th>
+		<th>最大图片ID</th>
+		<th>操作</th>
+	</thead>
+	<tbody>
+	<?php foreach($this->nodes as $node):?>
+	<tr>
+	<td><?=$node['node_id']?></td>
+	<td>
+		<?php if ($node['node_id'] != $this->cnode['node_id']):?>
+		<?=$node['node_name']?>
+		<a href="http://<?=$node['image_host']?>/guanli/node/" title="切换"><span class="glyphicon glyphicon-transfer"></span></a>
+		<?php else:?>
+		<b class="text-success" title="当前节点"><?=$node['node_name']?></b>
+		<?php endif?>
+	</td>
+	<td><?=$node['node_url']?></td>
+	<td><div style="height:20px"><span id="node_block_id_<?=$node['node_id']?>"><?=$node['max_block_id']?></span></div></td>
+	<td><div style="height:20px"><span id="node_incr_id_<?=$node['node_id']?>">----</span></div></td>
+	<td>
+		<a href="http://<?=$node['image_host']?>/guanli/node/table/">图片</a>&nbsp;&nbsp;
+		<a href="http://<?=$node['image_host']?>/guanli/node/block/">块</a>&nbsp;&nbsp;
+		<a href="http://<?=$node['image_host']?>/guanli/node/edit/<?=$node['node_id']?>">编辑</a>
+	</td>
+	</tr>
+	<?php endforeach?>
+	</tbody>
+</table>
+<script>
+	var animate = false;
+	showIds();	
+
+	function showIds(){
+		try {
+			$.getScript('/guanli/node/incrids.json?callback=loadMaxIds');
+		} catch(e) {
+			setTimeout(showIds, 2000);
+		}
+	}
+
+	function loadMaxIds(ret){
+		if (ret.err != 'hapn.ok') return;
+		if (ret.data.ids) {
+			for(var k in ret.data.ids) {
+				var node = $('#node_incr_id_' + k),block = $('#node_block_id_' + k),ids = ret.data.ids[k];
+				if (node.html() != ids[0]) {
+					if (animate) {
+						node.hide().html(ids[0]).fadeIn();
+					} else {
+						node.html(ids[0]);
+					}
+				}
+				if (block.html() != ids[1]) {
+					block.hide().html(ids[1]).fadeIn();
+				}
+				
+			}
+		}
+		animate = true;
+		setTimeout(showIds, 2000);
+	}
+</script>
+<?php else:?>
+<p>还没有任何节点，点击<a href="/guanli/node/add">添加</a>。</p>
+<?php endif?>

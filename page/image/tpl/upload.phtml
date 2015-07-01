@@ -1,0 +1,14 @@
+<?php $this->setLayout('_private/tpl/layout.phtml')?>
+
+<h1>上传图片</h1>
+<form action="/image/_upload" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+	    <label for="exampleInputEmail1">选择文件</label>
+	    <input type="file" name="image" class="form-control" id="exampleInputEmail1" placeholder="浏览...">
+	  </div>
+	 <button type="submit" class="btn btn-info">上传</button>
+</form>
+
+<?php if($this->img):?>
+<img src="/image/<?=$this->img?>"/>
+<?php endif?>
